@@ -1,12 +1,23 @@
 import {combineReducers} from 'redux'
+import {AUTH_SUCCESS,ERROR_MSG} from './action-types'
 
-function reducersone(state=1,action){
-    return state;
+const initUser ={
+    username:'',
+    type:'', //用户类型
+    msg:''//错误提示信息
+}
+//从后来来的数据一般都要存起来   登录注册需要管理user
+function user(state=initUser,action){
+    switch (action.type) {
+        case AUTH_SUCCESS:
+            return {...state,...action.data}
+        case ERROR_MSG:
+            return {...state,msg:action.data}
+        default:
+            return state;
+    }
 }
 
-function reducertwo(state=2,action){
-    return state;
-}
 export default combineReducers({
-    reducersone,reducertwo
+    user
 })

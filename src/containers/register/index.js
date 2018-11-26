@@ -4,7 +4,10 @@ import Logo from '../../components/logo'
 
 import './index.less'
 
-export default class Register extends React.Component{
+import {connect} from 'react-redux'
+import {registerAction} from '../../redux/actions'
+
+class Register extends React.Component{
 
     state={
         username:'',
@@ -18,14 +21,12 @@ export default class Register extends React.Component{
 
     }
 
-
-
     toLogin = () => {
         this.props.history.replace('/login')
     }
 
     register = () => {
-        console.log(this.state)
+        this.props.registerAction(this.state)
     }
 
     render(){
@@ -59,7 +60,7 @@ export default class Register extends React.Component{
                             <span style={{marginRight:30}}>用户类型：</span>
                             <Radio style={{marginRight:30}}
                                 checked={this.state.type==='dashen'}
-                                   onClick={() => {this.handleChange('type','dashen')}}
+                                   onClick={() => {this.handleChange(type,'dashen')}}
                             >大神</Radio>
                             <Radio
                                 checked={this.state.type==='laoban'}
@@ -78,3 +79,12 @@ export default class Register extends React.Component{
         )
     }
 }
+
+
+// const mapDispatch = (dispatch) => {
+//     return{
+//         dispatch(registerAction)
+//     }
+// }
+
+export default connect(null,{registerAction})(Register)
